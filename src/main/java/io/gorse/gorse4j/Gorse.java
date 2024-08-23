@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 
 public class Gorse {
@@ -48,11 +49,11 @@ public class Gorse {
     }
 
     public List<Feedback> listFeedback(String userId, String feedbackType) throws IOException {
-        return List.of(this.request("GET", this.endpoint + "/api/user/" + userId + "/feedback/" + feedbackType, null, Feedback[].class));
+        return Arrays.asList(this.request("GET", this.endpoint + "/api/user/" + userId + "/feedback/" + feedbackType, null, Feedback[].class));
     }
 
     public List<String> getRecommend(String userId) throws IOException {
-        return List.of(this.request("GET", this.endpoint + "/api/recommend/" + userId, null, String[].class));
+        return Arrays.asList(this.request("GET", this.endpoint + "/api/recommend/" + userId, null, String[].class));
     }
 
     private <Request, Response> Response request(String method, String url, Request request, Class<Response> responseClass) throws IOException {
