@@ -52,8 +52,16 @@ public class Gorse {
         return Arrays.asList(this.request("GET", this.endpoint + "/api/user/" + userId + "/feedback/" + feedbackType, null, Feedback[].class));
     }
 
+    public RowAffected deleteFeedback(String feedbackType,String userId,String itemId) throws IOException{
+        return this.request("DELETE",this.endpoint+"/api/feedback/"+feedbackType+"/"+userId+"/"+itemId,null, RowAffected.class);
+    }
+
     public List<String> getRecommend(String userId) throws IOException {
         return Arrays.asList(this.request("GET", this.endpoint + "/api/recommend/" + userId, null, String[].class));
+    }
+
+    public List<String> getRecommend(String userId,String categoryId) throws IOException {
+        return Arrays.asList(this.request("GET", this.endpoint + "/api/recommend/" + userId+"/"+categoryId, null, String[].class));
     }
 
     private <Request, Response> Response request(String method, String url, Request request, Class<Response> responseClass) throws IOException {
