@@ -1,7 +1,5 @@
 package io.gorse.gorse4j;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,6 +7,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Gorse {
 
@@ -62,6 +62,14 @@ public class Gorse {
 
     public List<String> getRecommend(String userId,String categoryId) throws IOException {
         return Arrays.asList(this.request("GET", this.endpoint + "/api/recommend/" + userId+"/"+categoryId, null, String[].class));
+    }
+
+    public List<Neighbor> getItemNeighbors(String itemId) throws IOException {
+        return Arrays.asList(this.request("GET", this.endpoint + "/api/item/" + itemId + "/neighbors", null, Neighbor[].class));
+    }
+
+    public List<Neighbor> getItemNeighbors(String itemId, String categoryId) throws IOException {
+        return Arrays.asList(this.request("GET", this.endpoint + "/api/item/" + itemId + "/neighbors/" + categoryId, null, Neighbor[].class));
     }
 
     private <Request, Response> Response request(String method, String url, Request request, Class<Response> responseClass) throws IOException {
